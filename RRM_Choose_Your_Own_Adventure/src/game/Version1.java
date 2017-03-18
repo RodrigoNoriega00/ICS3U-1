@@ -2,7 +2,11 @@ package game;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+*At Your Convenience.This is a choose your own adventure game, it was created on March 7,2017
+*
+*@authors Rohan Zahid,Rodrigo Noriega, Matthew Seftel
+**/
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
@@ -11,9 +15,13 @@ import hsa_new.Console;
 public class Version1 {
 
 	public static void main(String[] args) {
-		String item, action, choice, evidence, license = null, decision, weapon, revenge, bed, where1, where2, talk1, talk2, pickup, again = null;
+		String item, action, choice, evidence, license = null,decision, weapon, revenge, bed, where1, where2, talk1, talk2, pickup, again = null;
+		//Variables names correspond to a situation or object that the player discovers
+		// The variables can only be used once except
+		//again is the variable used to ask the player if they would like totry again
+	
 		String answer = null;
-		String bobby = "2";
+		String bobby = "2"; //bobby is the name of the array used for the lockpicking portion of the game
 		int f = 0;
 		int e = 0;
 		int d = 0;
@@ -22,9 +30,12 @@ public class Version1 {
 		int s = 0;
 		
 		boolean play = true; 
-		Console c = new Console(30,90);
+		Console c = new Console(30,90);			//The output console with it's size
 		do
 		{
+			/**
+			*Method displays an image on the console.Image is used only once 
+			**/
 			BufferedImage jpgImage = null;
 			//BufferedImage gifImage = null;
 			try {
@@ -39,20 +50,23 @@ public class Version1 {
 			c.clear();
 			c.drawImage (jpgImage, 300, 200, 500, 500, null);
 			
-			
+			/**
+			*Beginning of game
+			**/
 			c.println("Please press ENTER twice to start.");
 			c.readLine();
 			c.clear();
 			c.println("You and your friend walk into a convenience store.");
 			c.println("Do you buy food or a drink? (food/drink)");
-			item = c.readString();
+			item = c.readString();	// The item decission is the most important decision in the game since the two segments are vastly diffrent 
 			while (!item.equalsIgnoreCase("food")&&!item.equalsIgnoreCase("drink")) {
 				c.println("That is not a valid response.");
 				c.println("You and your friend walk into a convenience store.");
 				c.println("Do you buy food or a drink? (food/drink)");
 				item = c.readString();
 			}
-			if (item.equalsIgnoreCase("drink")) {
+			if (item.equalsIgnoreCase("drink")) {	// Drink option allows the player to get out of harms way.
+								//Player decides whether to help friend or call the police.  
 				c.println("You go to the back to get a drink. Suddenly, a man with a gun enters to rob the store and shoots your friend!" );
 				c.println("After the robber leaves, do you help your friend or call the police? (help/call)");
 				action = c.readString();
@@ -62,11 +76,12 @@ public class Version1 {
 					action = c.readString();
 				}
 				if (action.equalsIgnoreCase("call")) {
-					int x = (int)(Math.random() *10) + 1;
+					int x = (int)(Math.random() *10) + 1;	// Variable x randomizes the chance if the friend survives or dies.
 					if (x == 1 ||x == 2||x == 3||x == 4||x == 5||x == 6||x == 7||x == 8||x == 9) {
 						c.println("Your friend dies a PAINFUL death!");
 						c.println("You are brimming with RAGE. Do you want to get REVENGE?! (Y/N)");
-						revenge = c.readString();
+						revenge = c.readString();	//revenge is used if the friend dies 
+										//Gives player the option of taking revenge for the friend
 						while (!revenge.equalsIgnoreCase("y")&&!revenge.equalsIgnoreCase("n")) {
 							c.println("That is not a valid response.");
 							c.println("You are brimming with RAGE. Do you want to get REVENGE?! (Y/N)");
@@ -163,33 +178,39 @@ public class Version1 {
 
 							}*/
 						
-
+						/**
+						*The following code is used if player chooses to get revenge
+						*If not, code is left unused
+						**/
 
 						if (revenge.equalsIgnoreCase("y")) {
 							c.println("You go back to the shop to get evidence.");
 							c.println("Do you look for the evidence in the garbage or at the shooting site? (garbage/site)");
-							evidence = c.readString();
+							evidence = c.readString();	//evidence decides where the player will look
 							while (!evidence.equalsIgnoreCase("garbage")&&!evidence.equalsIgnoreCase("site")) {
 								c.println("That is not a valid response.");
 								c.println("Do you look for the evidence in the garbage or at the shooting site? (garbage/site)");
 								evidence = c.readString();
 							}
-							if (evidence.equalsIgnoreCase("garbage")) {
+							if (evidence.equalsIgnoreCase("garbage")) {	//garbage leads to the player not finding anything
 								c.println("You do not find anything important. There is a half-eaten cheeseburger though...");
 								c.println("You then go to the shooting site and find a license.");
 								c.println("You find the driver's licence of the shooter.");
 								c.println("Do you keep the license, or give it to the police?(keep/give)");
+								//license is the evidence found which was left by the shooter 
 								license = c.readString();
 								while (!license.equalsIgnoreCase("keep")&&!license.equalsIgnoreCase("give")) {
 									c.println("That is not a valid response.");
 									c.println("Do you keep the license, or give it to the police?(keep/give)");
 									license = c.readString();
 								}
-								if (license.equalsIgnoreCase("keep")){
+								if (license.equalsIgnoreCase("keep")){		//keep allows player to continue paying the game 
 									c.println("You see the address on the license and go there...");
 									c.println("When you get there, the police are outside the residence.");
 									c.println("Do you give up or go through the back door? (quit/door)");
-									decision = c.readString();
+									// door allows playerto enter the shooters house and confront them
+									// quit means player does not confront shooter
+									decision = c.readString();	//decision is the variable to quit or enter the door
 									while (!decision.equalsIgnoreCase("quit")&&!decision.equalsIgnoreCase("door")) {
 										c.println("That is not a valid response.");
 										c.println("Do you give up or go through the back door? (quit/door)");
@@ -198,12 +219,13 @@ public class Version1 {
 									if (decision.equalsIgnoreCase("door")) {
 										c.println("The back door is open and you enter. You find a gun and a fire extinguisher.");
 										c.println("Which do you choose? (gun/extinguisher)");
-										weapon = c.readString();
+										weapon = c.readString();	//weapon is variable used for the extinguisher or gun
 										while (!weapon.equalsIgnoreCase("gun")&&!weapon.equalsIgnoreCase("extinguisher")) {
 											c.println("That is not a valid response.");
 											c.println("Which do you choose? (gun/extinguisher)");
 											weapon = c.readString();
 										}
+										//If player chooses extinguisher, the game is won
 										if(weapon.equalsIgnoreCase("extinguisher")) {
 											c.println("You hit the shooter on the head with the fire extinguisher, and he gets knocked out.");
 											c.println("The police hear the noise and come inside.They arrest the shooter and give you $1,000,000 to keep quiet...");
@@ -243,6 +265,7 @@ public class Version1 {
 												}
 											}
 										}
+										//gun is the wrong decission and player dies
 										else if (weapon.equalsIgnoreCase("gun")){
 											c.println("You grab the gun, but it's filled with blanks.");
 											c.println("The robber hears you and stabs you to a PAINFUL DEATH!");
@@ -448,6 +471,8 @@ public class Version1 {
 												play = false;
 											}
 										}
+										//gun makes player die
+										//again is 
 										else if (weapon.equalsIgnoreCase("gun")){
 											c.println("You grab the gun, but it's filled with blanks.");
 											c.println("The robber hears you and stabs you to a PAINFUL DEATH!");
